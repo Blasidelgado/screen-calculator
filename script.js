@@ -13,7 +13,16 @@ const multiply = (num1, num2) => {
 }
 
 const divide = (num1, num2) => {
-    return num2 !== 0 ? num1 / num2 : "Cannot divide by zero";
+    if (num2 === 0) {
+        console.log("Cannot divide by zero");
+        return num1;
+    }
+
+    return num1 / num2;
+}
+
+const operate = (num1, num2, oper) => {
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
