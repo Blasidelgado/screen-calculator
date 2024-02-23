@@ -1,3 +1,5 @@
+let firstOperand = 0, secondOperand = 0, operator = ''; 
+
 const add = (num1, num2) => {
     return num1 + num2;
 }
