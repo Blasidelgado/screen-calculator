@@ -1,4 +1,4 @@
-let firstOperand = 0, secondOperand = 0, operator = ''; 
+let firstOperand = 0, secondOperand = 0, operator = '', displayValue = ''; 
 
 const add = (num1, num2) => {
     return num1 + num2;
@@ -37,4 +37,19 @@ const operate = (num1, num2, oper) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Scripts loaded correctly")
+    const display = document.getElementById("display");
+
+    document.querySelectorAll('.key').forEach(key => key.onclick = addToDisplay);
+    
+    function addToDisplay(e) {
+        const pressedKey = e.target.dataset.key;
+        if (pressedKey === "equals") {
+            displayValue += '=';
+        } else if (pressedKey === "clear") {
+            displayValue = "";
+        } else {
+            displayValue += pressedKey;
+        }
+        display.innerText = displayValue;
+    }
 });
