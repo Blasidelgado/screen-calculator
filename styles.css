@@ -14,21 +14,25 @@ body {
 
 #calculator {
     width: 100%;
-    max-width: 530px;
-    height: 530px;
+    max-width: 375px;
+    height: 400px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid black;
+    background-color: indigo;
+    padding: 1em;
 }
 
 #display {
     height: 25%;
+    font-size: 3em;
+    background-color: gray;
+    padding-left: 5%;
     display: flex;
     align-items: center;
-    margin-left: 5%;
-    font-size: 2em;
+    justify-content: flex-end;
+    border-radius: 12px;
 }
 
 .keys {
@@ -36,11 +40,12 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    margin-top: 5px;
 }
 
 .row {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     height: 23%;
 }
 
@@ -51,4 +56,25 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.5em;
+    border-radius: 12px;
+}
+
+.num {
+    background-color: aquamarine;
+    border-color: aquamarine;
+}
+
+.operator {
+    background-color: darkgoldenrod;
+    border-color: darkgoldenrod;
+}
+
+.equals {
+    background-color: forestgreen;
+    border-color: forestgreen;
+}
+
+.clear {
+    background-color: brown;
+    border-color: brown;
 }

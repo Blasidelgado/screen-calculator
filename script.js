@@ -1,55 +1,84 @@
-let firstOperand = 0, secondOperand = 0, operator = '', displayValue = ''; 
+let lastNumber = 0;
+let currentNumber = 0;
+let operator = null;
 
-const add = (num1, num2) => {
-    return num1 + num2;
+
+const add = (leftOp, rightOp) => {
+    return leftOp + rightOp;
 }
 
-const substract = (num1, num2) => {
-    return num1 - num2;
+const substract = (leftOp, rightOp) => {
+    return leftOp - rightOp;
 }
 
-const multiply = (num1, num2) => {
-    return num1 * num2;
+const multiply = (leftOp, rightOp) => {
+    return leftOp * rightOp;
 }
 
-const divide = (num1, num2) => {
-    return num1 / num2;
+const divide = (leftOp, rightOp) => {
+    return leftOp / rightOp;
 }
 
-const operate = (num1, num2, oper) => {
+
+const operate = (leftOp, rightOp, oper) => {
     switch(oper) {
         case '+':
-            return add(num1, num2);
+            return add(leftOp, rightOp);
         case '-':
-            return substract(num1, num2);
+            return substract(leftOp, rightOp);
         case '*':
-            return multiply(num1, num2);
+            return multiply(leftOp, rightOp || 1);
         case '/':
-            if (num2 === 0){
-                console.log("Cannot divide by zero");
-                return num1;
+            if (rightOp === 0){
+                return Number.POSITIVE_INFINITY;
             }
-            return divide(num1, num2);
+            return divide(leftOp, rightOp || 1);
         default:
-            return console.log("Clear function should be called");
+            return leftOp;
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Scripts loaded correctly")
-    const display = document.getElementById("display");
 
-    document.querySelectorAll('.key').forEach(key => key.onclick = addToDisplay);
-    
-    function addToDisplay(e) {
-        const pressedKey = e.target.dataset.key;
-        if (pressedKey === "equals") {
-            displayValue += '=';
-        } else if (pressedKey === "clear") {
-            displayValue = "";
-        } else {
-            displayValue += pressedKey;
-        }
-        display.innerText = displayValue;
-    }
+const clear = () => {
+    operator = null;
+    currentNumber = 0;
+    lastNumber = 0;
+}
+
+const updateDisplay = (key) => {
+    switch (key) {
+        case 'c':
+            clear();
+            return lastNumber;   
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '=':
+            if (operator === null) {
+                lastNumber = currentNumber;
+            } else { 
+                lastNumber = operate(lastNumber, currentNumber, operator);
+            }
+            operator = key;
+            currentNumber = 0;
+            return lastNumber;
+        default:
+            if (operator == '=') {
+                clear();
+            }
+            currentNumber = parseInt(currentNumber.toString() + key);
+            return currentNumber;
+    }   
+} 
+
+document.addEventListener('DOMContentLoaded', () => {
+    const display = document.getElementById("display");
+    display.innerText = currentNumber;
+
+    const allKeys = document.querySelectorAll('.key');
+
+    allKeys.forEach(key => key.onclick = function () {
+        display.innerText = updateDisplay(key.dataset.value);
+    });
 });
